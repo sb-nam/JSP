@@ -311,5 +311,110 @@ String str="1부터 100까지의 합";
 </html>
 ```
 
-## request
+## request 클릭
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Request Test</title>
+<style>
+h1 , #commandCell {
+     text-align: center;
+}
+
+table {
+	margin: auto;
+	width: 400px;
+	border: 1px solid black;
+	
+}
+</style>
+</head>
+<body>
+	<h1>Request EX</h1>
+	<form action="request1.jsp" method="post">
+		<table>
+			<tr>
+				<td><label for="name">이름: </label></td>
+				<td><input type="text" name="name" id="name"></td>
+			</tr>
+			<tr>
+				<td><label for="gender">성별: </label></td>
+				<td>남<input type="radio" name="gender" value="male" id="gender">여<input
+					type="radio" name="gender" value="female" id="gender"></td>
+			</tr>
+			<tr>
+				<td><label for="hobby">취미: </label></td>
+				<td>독서<input type="checkbox" name="hobby" value="독서" id="hobby">
+					게임<input type="checkbox" name="hobby" value="게임" id="hobby">
+					tv시청<input type="checkbox" name="hobby" value="tv시청" id="hobby">
+					축구<input type="checkbox" name="hobby" value="축구" id="hobby">
+					기타<input type="checkbox" name="hobby" value="기타" id="hobby">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" id="commandCell"><input type="submit"
+					value="전송"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+```
+## request 결과
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%request.setCharacterEncoding("UTF-8"); %>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Request Test</title>
+<style>
+h1 , #commandCell {
+     text-align: center;
+}
+
+table {
+	margin: auto;
+	width: 400px;
+	border: 1px solid red;
+	
+}
+</style>
+</head>
+<body>
+	<h1>Request EX</h1>
+	
+		<table>
+			<tr>
+				<td>이름: </td>
+				<td><%=request.getParameter("name") %></td>
+			</tr>
+			<tr>
+				<td>성별: </td>
+				<td><%if(request.getParameter("gender").equals("male")) {
+					%>남자
+				<%} else {%>여자<%} %>
+				</td>
+			</tr>
+			<tr>
+				<td>취미: </td>
+				<td>
+				<%String[] hobby = request.getParameterValues("hobby");
+				for(int i=0; i<hobby.length; i++) {
+				%>
+				<%=hobby[i] %>&nbsp;&nbsp;
+				<%} %>
+				</td>
+			</tr>
+			
+		</table>
+	
+</body>
+</html>
 ```
