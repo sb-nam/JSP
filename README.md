@@ -418,3 +418,199 @@ table {
 </body>
 </html>
 ```
+## 속성과 관련된 메소드
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attribute Test Form</title>
+</head>
+<body>
+	<h2>영역과 속성 테스트</h2>
+	<form action="attributeTest.1jsp" method="post">
+		<table border="1">
+			<tr>
+				<td colspan="2">Application 영역에 저장할 내용들</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="전송"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+```
+
+## 속성 정의하고 사용하기1
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attribute Test Form</title>
+</head>
+<body>
+	<h2>영역과 속성 테스트</h2>
+	<form action="attributeTest1.jsp" method="post">
+		<table border="1">
+			<tr>
+				<td colspan="2">Application 영역에 저장할 내용들</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="전송"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+```
+
+## 2
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>attribute Test</title>
+</head>
+<body>
+	<h2>영역과 속성 테그</h2>
+	<%
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
+		String id = request.getParameter("id");
+		if (name != null && id != null) {
+			application.setAttribute("name", name);
+			application.setAttribute("id", id);
+
+		}
+	%>
+	<h3><%=name%>님 반갑습니다.<br><%=name%>님의 아이디는
+		<%=id%>입니다.
+	</h3>
+	<form action="attributeTest2.jsp" method="post">
+		<table border="1">
+			<tr>
+				<td colspan="2">Session 영역에 저장할 내용들</td>
+			</tr>
+			<tr>
+				<td>e-mail 주소</td>
+				<td><input type="text" name="email"></td>
+			</tr>
+			<tr>
+				<td>집 주소</td>
+				<td><input type="text" name="address"></td>
+			</tr>
+			<tr>
+				<td>전화번호</td>
+				<td><input type="text" name="tel"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="전송"></td>
+		</table>
+	</form>
+</body>
+</html>
+```
+
+## 3
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attribute Test</title>
+</head>
+<body>
+	<h2>영역과 속성 테스트</h2>
+	<%
+		request.setCharacterEncoding("UTF-8");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
+		String tel = request.getParameter("tel");
+		session.setAttribute("email", email);
+		session.setAttribute("address", address);
+		session.setAttribute("tel", tel);
+
+		String name = (String) application.getAttribute("name");
+	%>
+	<h3><%=name%>님의 정보가 모두 저장되었습니다.
+	</h3>
+	<a href="attributeTest3.jsp">확인하러 가기</a>
+</body>
+</html>
+```
+## 4
+```
+<%@page import="java.util.Enumeration"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attribute Test</title>
+</head>
+<body>
+	<h2>영역과 속성 테스트</h2>
+	<table border="1">
+		<tr>
+			<td colspan="2">Application 영역에 저장된 내용들</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><%=application.getAttribute("name")%></td>
+		</tr>
+		<tr>
+			<td>아이디</td>
+			<td><%=application.getAttribute("id")%></td>
+		</tr>
+	</table>
+	<br>
+	<table border="1">
+		<tr>
+			<td>Session 영역에 저장된 내용들</td>
+		</tr>
+
+		<%
+			Enumeration e = session.getAttributeNames();
+			while (e.hasMoreElements()) {
+				String attributeName = (String) e.nextElement();
+				String attributeValue = (String) session.getAttribute(attributeName);
+		%>
+		<tr>
+			<td><%=attributeName%></td>
+			<td><%=attributeValue%></td>
+		</tr>
+		<%
+			}
+		%>
+	</table>
+</body>
+</html>
+```
