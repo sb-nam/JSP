@@ -702,3 +702,178 @@ public class BeanTest2 {
 </body>
 </html>
 ```
+
+## 자바빈 회원 가입 페이지1
+```
+package join;
+
+public class JoinBean {
+
+	private String id;
+	private String pass;
+	private String name;
+	private int sex;
+	private int age;
+	private String email;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getSex() {
+		return sex;
+	}
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
+}
+```
+## 자바빈 회원 가입 페이지2
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 가입 폼</title>
+<style type="text/css">
+#formArea {
+	margin: auto;
+	width: 400px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+table {
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<section id="formArea">
+		<form action="join.jsp" method="post">
+			<table>
+				<tr>
+					<td><label for="id">아이디 : </label></td>
+					<td><input type="text" name="id" id="id"></td>
+				</tr>
+				<tr>
+					<td><label for="pass">비밀번호 : </label></td>
+					<td><input type="text" name="pass" id="pass"></td>
+				</tr>
+				<tr>
+					<td><label for="name">이름 : </label></td>
+					<td><input type="text" name="name" id="name"></td>
+				</tr>
+				<tr>
+					<td><label for="sex">성별 : </label></td>
+					<td><input type="radio" name="sex" value="1" id="sex" checked>남</td>
+					<td><input type="radio" name="sex" value="2" id="sex" checked>여</td>
+				</tr>
+				<tr>
+					<td><label for="age">나이 : </label></td>
+					<td><input type="text" name="age" id="age"></td>
+				</tr>
+				<tr>
+					<td><label for="email">이메일 : </label></td>
+					<td><input type="text" name="email" id="email"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="가입"> <input
+						type="submit" value="다시 작성"></td>
+				</tr>
+			</table>
+		</form>
+	</section>
+</body>
+</html>
+```
+
+## 자바빈 회원가입 페이지3
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="join" class="join.JoinBean" />
+<jsp:setProperty property="*" name="join" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 입력 정보 확인 페이지</title>
+<style type="text/css">
+table {
+	width: 400px;
+}
+
+h1 {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td><b>아이디 : </b></td>
+			<td><jsp:getProperty property="id" name="join" /></td>
+		</tr>
+		<tr>
+			<td><b>비밀번호 : </b></td>
+			<td><jsp:getProperty property="pass" name="join" /></td>
+		</tr>
+		<tr>
+			<td><b>이름 : </b></td>
+			<td><jsp:getProperty property="name" name="join" /></td>
+		</tr>
+		<tr>
+			<td><b>성별 : </b></td>
+			<td><jsp:getProperty property="sex" name="join" /></td>
+		</tr>
+		<tr>
+			<td><b>나이 : </b></td>
+			<td><jsp:getProperty property="age" name="join" /></td>
+		</tr>
+		<tr>
+			<td><b>이메일 : </b></td>
+			<td><jsp:getProperty property="email" name="join" /></td>
+		</tr>
+	</table>
+</body>
+</html>
+```
