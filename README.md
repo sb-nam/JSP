@@ -614,3 +614,91 @@ table {
 </body>
 </html>
 ```
+## 자바빈 사용법1
+```
+package test;
+
+public class BeanTest2 {
+
+	private String name;
+	private String addr;
+	private String email;
+	private String birthday;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
+}
+```
+##  자바빈 사용법2
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+	<section id="formArea">
+		<h1>property="*"테스트</h1>
+		<form action="beanTest4.jsp" method="post">
+			<fieldset>
+				<label for="name">이름 : </label><input type="text" name="name"
+					id="name" /><br> <label for="addr">주소 : </label><input
+					type="text" name="addr" id="addr" /><br> <label for="email">이메일
+					: </label><input type="text" name="email" id="email" /><br> <label
+					for="birthday">생년월일 : </label><input type="text" name="birthday"
+					id="birthday" /><br> <input type="submit" value="전송">
+			</fieldset>
+		</form>
+	</section>
+</body>
+</html>
+```
+## 자바빈 사용법3
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+    request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="beantest" class="test.BeanTest2" scope="page"/>
+<jsp:setProperty property="*" name="beantest"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaBean Test</title>
+</head>
+<body>
+<h1>자바빈 속성 값 출력</h1>
+<b>이름 : </b><%=beantest.getName() %><br>
+<b>주소 : </b><%=beantest.getAddr() %><br>
+<b>이메일 : </b><%=beantest.getEmail() %><br>
+<b>생년월일 : </b><%=beantest.getBirthday() %><br>
+</body>
+</html>
+```
