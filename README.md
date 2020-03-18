@@ -1028,3 +1028,58 @@ td {
 </body>
 </html>
 ```
+## JSP 와 DB연동
+```
+servers-톰캣-context.xml에 작성
+
+<?xml version="1.0" encoding="UTF-8"?>
+  
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+   
+    	<Resource name="jdbc/OracleDB" auth="Container"
+		type="javax.sql.DataSource" username="scott" password="tiger"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+		url="jdbc:oracle:thin:@localhost:1521:xe" maxActive="500"
+		maxIdle="1000"
+</Context>
+```
+## JSP 와 DB연동2
+```
+<%@page import="javax.sql.*"%>
+<%@page import="javax.naming.*"%>
+<%@page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+Connection conn = null;
+String sql = "INSERT INTO student(num,name) VALUES(7,'홍길동')";
+Statement stmt = null;
+try{
+	Context init = new InitialContext();
+	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/OracleDB");
+	conn = ds.getConnection();
+	stmt = conn.createStatement();
+	
+	int result = stmt.executeUpdate(sql);
+	if(result!=0) {
+		out.println("<h3>레코드가 등록되었습니다.</h3>");
+	}
+}catch (Exception e) {
+	out.println("<h3>레코드 등록에 실패 하였습니다.</h3>");
+	e.printStackTrace();
+}
+finally {
+	try{
+		stmt.close();
+		conn.close();
+		
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+}
+%>    
+```
